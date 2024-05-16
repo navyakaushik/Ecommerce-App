@@ -1,8 +1,12 @@
+import AdminSidebar from "../components/AdminSidebar"
 
 
 const Transaction = () => {
   return (
-    <div>Transaction</div>
+    <div className="admin-container">
+      <AdminSidebar/>
+      <main>sdfc</main>
+    </div>
   )
 }
 
