@@ -3,6 +3,10 @@ import AdminSidebar from "../components/AdminSidebar";
 import {BsSearch} from 'react-icons/bs';
 import userImg from '../assets/userImg.png'
 import { HiTrendingUp, HiTrendingDown } from "react-icons/hi";
+import data from '../assets/data.json'
+import { BarChart, DoughnutChart } from "../components/Charts";
+import { BiMaleFemale } from "react-icons/bi";
+import Table from "../components/DashboardTable"
 
 
 const dashboard = () => {
@@ -53,18 +57,43 @@ const dashboard = () => {
         <section className="graph-container">
           <div className="revenue-chart">
             <h2>Revenue & Transaction</h2>
-
+            <BarChart 
+            data_1={[200, 444, 343, 556, 778, 455, 990]}
+            data_2={[300, 144, 433, 655, 237, 755, 190]}
+            title_1="Revenue"
+            title_2="Transaction"
+            bgColor_1="rgb(0, 115, 255)"
+            bgColor_2="rgba(53, 162, 235, 0.8)"
+            />
           </div>
           <div className="dashboard-categories">
             <h2>Inventory</h2>
             <div>
-              <CategoryItem 
-              heading = "Laptops" 
-              value = {70}
-              color = "hsl(69, 100%, 50%)"
-              />
+              {data.categories.map((i) => (
+                <CategoryItem
+                key = {i.heading}
+                heading = {i.heading}
+                value = {i.value}
+                color = {`hsl(${i.value * 4}, ${i.value}%, 50%)`}
+                />
+              ))}
             </div>
           </div>
+        </section>
+
+        <section className="transaction-container">
+          <div className="gender-chart">
+            <h2>Gender Ratio</h2>
+            <DoughnutChart labels = {["Female", "Male"]} 
+            data = {[12,19]}
+            backgroundColor={["hsl(340, 82%, 56%)" , 
+            "rgba(53, 162, 235, 0.8)"]}
+            cutout={90}/>
+
+            <p><BiMaleFemale/></p>
+          </div>
+          <Table data = {data.transaction}/>
+
         </section>
 
       </main>
@@ -134,11 +163,11 @@ const CategoryItem = ({color, value, heading}: CategoryItemProps)=>
       <div 
       style={{
         backgroundColor: color,
-        width: `$(value)%`
+        width: `${value}%`
       }}
       ></div>
     </div>
-    <span>{value}</span>
+    <span>{value}%</span>
   </div>
 
   );
