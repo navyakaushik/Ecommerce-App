@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { errorMiddleware } from './middlewares/error.js';
 import {config} from "dotenv";
 import Stripe from 'stripe';
+import cors from "cors";
 
 //importing routes
 
@@ -34,6 +35,7 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
 
 app.get("/api/v1/user", (req, res) => {
 res.send("API Working with /api/v1")
